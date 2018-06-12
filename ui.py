@@ -60,7 +60,10 @@ def print_menu(title, list_options, exit_message):
     Returns:
         None: This function doesn't return anything it only prints to console.
     """
-
+    print(title)
+    for option_index in range(len(list_options)):
+        print('(', option_index+1, ')   ',list_options[option_index], sep='')
+    print('(0)', exit_message, sep='\t')
     # your code
 
 
