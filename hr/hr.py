@@ -27,6 +27,15 @@ def start_module():
     """
 
     # your code
+    title = "HR menu"
+    hr_sub_menu =  ["Show staff",
+                    "Add person to staff",
+                    "Remove person from staff",
+                    "Update staff",
+                    "Get oldest person",
+                    "Get the most average old person"]
+    exit_message = "Bye"
+    ui.print_menu(title, hr_sub_menu,exit_message)
 
 
 def show_table(table):
@@ -41,6 +50,9 @@ def show_table(table):
     """
 
     # your code
+    
+    hr_table = data_manager.get_table_from_file("persons.csv")
+    ui.print_table(hr_table)
 
 
 def add(table):
@@ -122,3 +134,5 @@ def get_persons_closest_to_average(table):
     """
 
     # your code
+
+print(show_table("persons.csv"))
