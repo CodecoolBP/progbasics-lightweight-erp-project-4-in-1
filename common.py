@@ -23,3 +23,7 @@ def generate_random(table):
     # your code
 
     return generated
+
+
+def add_general(table, table_structure):
+    ui.get_inputs

@@ -51,7 +51,7 @@ def show_table(table):
 
     # your code
     
-    hr_table = data_manager.get_table_from_file("persons.csv")
+    hr_table = data_manager.get_table_from_file("hr/persons.csv")
     ui.print_table(hr_table)
 
 
@@ -134,5 +134,3 @@ def get_persons_closest_to_average(table):
     """
 
     # your code
-
-print(show_table("persons.csv"))

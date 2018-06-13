@@ -17,6 +17,9 @@ import data_manager
 # common module
 import common
 
+def table_structure():
+    table_struct = ['id', 'name', 'manufacturer', 'purchase_year', 'durability']
+    return table_struct
 
 def start_module():
     """
@@ -27,7 +30,7 @@ def start_module():
     Returns:
         None
     """
-    inventory_table = data_manager.get_table_from_file('/home/reka/python_gyakorlo/progbasics-lightweight-erp-project-4-in-1/inventory/inventory.csv')
+    inventory_table = data_manager.get_table_from_file('inventory/inventory.csv')
 
     sub_options = ["Display inventory",
                    "Add a new console type",
@@ -55,7 +58,7 @@ def start_module():
     elif option == "6":
         get_average_durability_by_manufacturers
     elif option == "0":
-        
+        main.main()
     else:
         raise KeyError("There is no such option.")
 
@@ -84,9 +87,9 @@ def add(table):
         list: Table with a new record
     """
 
-    # your code
-
-    return table
+    extended_table = common.add_general(table, table_structure())
+    data_manager.write_table_to_file('inventory.csv', extended_table)
+    return extended_table
 
 
 def remove(table, id_):
