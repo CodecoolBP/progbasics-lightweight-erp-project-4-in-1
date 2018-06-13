@@ -91,11 +91,6 @@ def get_inputs(list_labels, title):
     for labels_index in range(len(list_labels)):
         input_data = input(list_labels[labels_index])
         inputs.append(input_data)
-
-    
-
-    # your code
-
     return inputs
 
 

@@ -27,9 +27,37 @@ def start_module():
     Returns:
         None
     """
+    inventory_table = data_manager.get_table_from_file('/home/reka/python_gyakorlo/progbasics-lightweight-erp-project-4-in-1/inventory/inventory.csv')
 
-    # your code
+    sub_options = ["Display inventory",
+                   "Add a new console type",
+                   "Remove a console type",
+                   "Update a console",
+                   "Available consoles (not yet available)",
+                   "Average durability times by manufacturers (not yet available)"]
+     
+    ui.print_menu("Inventory menu", sub_options, "Main menu")
 
+    inputs = ui.get_inputs(["Please enter a number: "], "")
+    option = inputs[0]
+    if option == "1":
+        show_table(inventory_table)
+    elif option == "2":
+        add(inventory_table)
+    elif option == "3":
+        id_input = ui.get_inputs(["Please give an id: "], "")
+        remove(inventory_table, id_input[0])
+    elif option == "4":
+        id_input = ui.get_inputs(["Please give an id: "], "")
+        update(inventory_table, id_input[0])
+    elif option == "5":
+        get_available_items(table)
+    elif option == "6":
+        get_average_durability_by_manufacturers
+    elif option == "0":
+        
+    else:
+        raise KeyError("There is no such option.")
 
 def show_table(table):
     """
