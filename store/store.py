@@ -48,7 +48,7 @@ def start_module():
         inputs = ui.get_inputs(["Please enter a number: "], "")
         option = inputs[0]
         if option == "1":
-            show_table(store_table, table_struct)
+            show_table(store_table, table_structure())
         elif option == "2":
             add(store_table)
         elif option == "3":
@@ -94,7 +94,7 @@ def add(table):
     """
 
     extended_table = common.add_general(table, table_structure())
-    data_manager.write_table_to_file('store.csv', extended_table)
+    data_manager.write_table_to_file('store/games.csv', extended_table)
     return extended_table
 
 
@@ -127,9 +127,10 @@ def update(table, id_):
         list: table with updated record
     """
 
-    # your code
+    update_table = common.update_general(table, table_structure(), id_)
+    data_manager.write_table_to_file('store/games.csv', update_table)
 
-    return table
+    return update_table
 
 
 # special functions:

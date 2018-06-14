@@ -48,7 +48,7 @@ def start_module():
         inputs = ui.get_inputs(["Please enter a number: "], "")
         option = inputs[0]
         if option == "1":
-            show_table(sales_table, table_struct)
+            show_table(sales_table, table_structure())
         elif option == "2":
             add(sales_table)
         elif option == "3":
@@ -58,7 +58,7 @@ def start_module():
             id_input = ui.get_inputs(["Please give an id: "], "")
             update(sales_table, id_input[0])
         elif option == "5":
-            print(get_lowest_price_item_id(sales_table))
+            ui.print_result(get_lowest_price_item_id(sales_table), "What is the id of the item that was sold for the lowest price?")
         elif option == "6":
             inputs = ui.get_inputs(["Please give the following data: "], "")
             get_items_sold_between(sales_table, inputs[0], inputs[1], inputs[2], inputs[3], inputs[4], inputs[5])
@@ -95,7 +95,7 @@ def add(table):
     """
 
     extended_table = common.add_general(table, table_structure())
-    data_manager.write_table_to_file('sales.csv', extended_table)
+    data_manager.write_table_to_file('sales/sales.csv', extended_table)
     return extended_table
 
 
@@ -128,9 +128,10 @@ def update(table, id_):
         list: table with updated record
     """
 
-    # your code
+    update_table = common.update_general(table, table_structure(), id_)
+    data_manager.write_table_to_file('sales/sales.csv', update_table)
 
-    return table
+    return update_table
 
 
 # special functions:
@@ -155,7 +156,6 @@ def get_lowest_price_item_id(table):
             lowest_price = int(sublist[2])
             id_code = sublist[0]
     return id_code
-
 
 def get_items_sold_between(table, month_from, day_from, year_from, month_to, day_to, year_to):
     """
