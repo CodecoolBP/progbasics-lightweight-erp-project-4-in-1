@@ -40,3 +40,15 @@ def add_general(table, table_structure):
     new_item.insert(0, generate_random(table))
     table.append(new_item)
     return table
+
+
+def update_general(table, table_structure, id_):
+    update_item = ui.get_inputs(table_structure[1:], "Please provide datas:")
+    update_item.insert(0, id_)
+
+    for index in range(len(table)):
+        if str(table[index][0]) == id_:
+            table[index] = update_item
+    print(table)
+    return table
+    
