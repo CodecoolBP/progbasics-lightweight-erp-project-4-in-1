@@ -60,8 +60,8 @@ def start_module():
         elif option == "5":
             ui.print_result(get_counts_by_manufacturers(store_table), "How many different kinds of game are available of each manufacturer?")
         elif option == "6":
-            manufacturer_input = ui.get_inputs(table_structure[2], "")
-            get_average_by_manufacturer(store_table, manufacturer)
+            manufacturer_input = ui.get_inputs(["Please give a manufacturer: "], "")
+            ui.print_result(get_average_by_manufacturer(store_table, manufacturer_input[0]), "What is the average amount of games in stock of a given manufacturer?")
         elif option == "0":
             break
         else:
@@ -169,4 +169,12 @@ def get_average_by_manufacturer(table, manufacturer):
          number
     """
 
-    # your code
+    total_stock = 0
+    number_of_games = 0
+    for sublist in table:
+        if manufacturer in sublist:
+            number_of_games += 1
+            total_stock += int(sublist[4])
+    result = total_stock / number_of_games
+    return result
+
