@@ -88,7 +88,8 @@ def add(table):
     """
 
     extended_table = common.add_general(table, table_structure())
-    data_manager.write_table_to_file('inventory.csv', extended_table)
+    data_manager.write_table_to_file('inventory/inventory.csv', extended_table)
+    
     return extended_table
 
 

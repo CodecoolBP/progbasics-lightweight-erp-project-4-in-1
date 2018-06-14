@@ -3,6 +3,7 @@ implement commonly used functions here
 """
 
 import random
+import ui
 
 
 def generate_random(table):
@@ -19,11 +20,23 @@ def generate_random(table):
     """
 
     generated = ''
+    while True:
+        generated = chr(random.randint(35,38)) + chr(random.randint(35,38)) + \
+        chr(random.randint(48,57)) + chr(random.randint(48,57)) + \
+        chr(random.randint(65,90)) + chr(random.randint(65,90)) + \
+        chr(random.randint(97,122)) + chr(random.randint(97,122))
 
-    # your code
-
-    return generated
+        exists = False
+        for row in table:
+            if str(row[0]) == generated:
+                exists = True
+                break
+        if not exists:
+            return generated
 
 
 def add_general(table, table_structure):
-    ui.get_inputs
+    new_item = ui.get_inputs(table_structure[1:], "Please provide datas:")
+    new_item.insert(0, generate_random(table))
+    table.append(new_item)
+    return table
