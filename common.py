@@ -40,3 +40,7 @@ def add_general(table, table_structure):
     new_item.insert(0, generate_random(table))
     table.append(new_item)
     return table
+
+
+def show_general(table, table_structure):
+    ui.print_table

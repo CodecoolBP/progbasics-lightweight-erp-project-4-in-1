@@ -18,6 +18,11 @@ import data_manager
 import common
 
 
+def table_structure():
+    table_struct = ['id', 'title', 'manufacturer', 'price', 'in_stock']
+    return table_struct
+
+
 def start_module():
     """
     Starts this module and displays its menu.
@@ -28,10 +33,42 @@ def start_module():
         None
     """
 
-    # your code
+    while True:
+        store_table = data_manager.get_table_from_file('store/games.csv')
+
+        sub_options = ["Display games",
+                    "Add new game",
+                    "Remove a game",
+                    "Update a game",
+                    "Check how many games each manufacturers has",
+                    "Check the average amount of games in stock of a manufacturer"]
+        
+        ui.print_menu("Store menu", sub_options, "Main menu")
+
+        inputs = ui.get_inputs(["Please enter a number: "], "")
+        option = inputs[0]
+        if option == "1":
+            show_table(store_table, table_struct)
+        elif option == "2":
+            add(store_table)
+        elif option == "3":
+            id_input = ui.get_inputs(["Please give an id: "], "")
+            remove(store_table, id_input[0])
+        elif option == "4":
+            id_input = ui.get_inputs(["Please give an id: "], "")
+            update(store_table, id_input[0])
+        elif option == "5":
+            print(get_lowest_price_item_id(store_table))
+        elif option == "6":
+            manufacturer_input = ui.get_inputs(table_structure[2], "")
+            get_average_by_manufacturer(store_table, manufacturer)
+        elif option == "0":
+            break
+        else:
+            raise KeyError("There is no such option.")
 
 
-def show_table(table):
+def show_table(table, table_structure):
     """
     Display a table
 
@@ -42,7 +79,7 @@ def show_table(table):
         None
     """
 
-    # your code
+    ui.print_table(table, table_structure)
 
 
 def add(table):
@@ -56,9 +93,9 @@ def add(table):
         list: Table with a new record
     """
 
-    # your code
-
-    return table
+    extended_table = common.add_general(table, table_structure())
+    data_manager.write_table_to_file('store.csv', extended_table)
+    return extended_table
 
 
 def remove(table, id_):

@@ -19,6 +19,11 @@ import data_manager
 import common
 
 
+def table_structure():
+    table_struct = ['id', 'title', 'price', 'month', 'day', 'year']
+    return table_struct
+
+
 def start_module():
     """
     Starts this module and displays its menu.
@@ -28,11 +33,43 @@ def start_module():
     Returns:
         None
     """
+    while True:
+        sales_table = data_manager.get_table_from_file('sales/sales.csv')
 
+        sub_options = ["Display sales",
+                    "Add new sold game",
+                    "Remove sold game",
+                    "Update sold game",
+                    "Check sold with the lowest price ",
+                    "Check items sold between a given date"]
+        
+        ui.print_menu("Sales menu", sub_options, "Main menu")
+
+        inputs = ui.get_inputs(["Please enter a number: "], "")
+        option = inputs[0]
+        if option == "1":
+            show_table(sales_table, table_struct)
+        elif option == "2":
+            add(sales_table)
+        elif option == "3":
+            id_input = ui.get_inputs(["Please give an id: "], "")
+            remove(sales_table, id_input[0])
+        elif option == "4":
+            id_input = ui.get_inputs(["Please give an id: "], "")
+            update(sales_table, id_input[0])
+        elif option == "5":
+            print(get_lowest_price_item_id(sales_table))
+        elif option == "6":
+            inputs = ui.get_inputs(["Please give the following data: "], "")
+            get_items_sold_between(sales_table, inputs[0], inputs[1], inputs[2], inputs[3], inputs[4], inputs[5])
+        elif option == "0":
+            break
+        else:
+            raise KeyError("There is no such option.")
     # your code
 
 
-def show_table(table):
+def show_table(table, table_structure):
     """
     Display a table
 
@@ -43,7 +80,7 @@ def show_table(table):
         None
     """
 
-    # your code
+    ui.print_table(table, table_structure)
 
 
 def add(table):
@@ -57,9 +94,9 @@ def add(table):
         list: Table with a new record
     """
 
-    # your code
-
-    return table
+    extended_table = common.add_general(table, table_structure())
+    data_manager.write_table_to_file('sales.csv', extended_table)
+    return extended_table
 
 
 def remove(table, id_):
@@ -111,7 +148,13 @@ def get_lowest_price_item_id(table):
          string: id
     """
 
-    # your code
+    lowest_price = 0
+    id_code = None
+    for sublist in table:
+        if int(sublist[2]) > int(lowest_price):
+            lowest_price = int(sublist[2])
+            id_code = sublist[0]
+    return id_code
 
 
 def get_items_sold_between(table, month_from, day_from, year_from, month_to, day_to, year_to):
