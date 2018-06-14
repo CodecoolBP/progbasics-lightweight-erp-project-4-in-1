@@ -49,6 +49,6 @@ def update_general(table, table_structure, id_):
     for index in range(len(table)):
         if str(table[index][0]) == id_:
             table[index] = update_item
-    print(table)
+    
     return table
     

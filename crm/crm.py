@@ -17,6 +17,11 @@ import data_manager
 import common
 
 
+def table_structure():
+    table_struct = ['id', 'name', 'email', 'subscribed']
+    return table_struct
+
+
 def start_module():
     """
     Starts this module and displays its menu.
@@ -27,7 +32,39 @@ def start_module():
         None
     """
 
-    # your code
+    while True:
+        crm_table = data_manager.get_table_from_file('crm/customers.csv')
+
+        sub_options = ["Display crm table",
+                    "Add a new customer",
+                    "Remove a customer",
+                    "Update a customer",
+                    "(not yet available)",
+                    "(not yet available)"]
+        
+        ui.print_menu("Customer Relationship Management menu", sub_options, "Main menu")
+
+        inputs = ui.get_inputs(["Please enter a number: "], "")
+        option = inputs[0]
+        if option == "1":
+            show_table(crm_table)
+        elif option == "2":
+            add(crm_table)
+        elif option == "3":
+            id_input = ui.get_inputs(["Please give an id: "], "")
+            remove(crm_table, id_input[0])
+        elif option == "4":
+            id_input = ui.get_inputs(["Please give an id: "], "")
+            update(crm_table, id_input[0])
+        elif option == "5":
+            get_longest_name_id(crm_table)
+        elif option == "6":
+            get_subscribed_emails(crm_table)
+        elif option == "0":
+            break
+        else:
+            raise KeyError("There is no such option.")
+
 
 
 def show_table(table):
@@ -41,7 +78,7 @@ def show_table(table):
         None
     """
 
-    # your code
+    ui.print_table(table, table_structure())
 
 
 def add(table):
@@ -54,8 +91,9 @@ def add(table):
     Returns:
         list: Table with a new record
     """
-
-    # your code
+    extended_table = common.add_general(table, table_structure())
+    data_manager.write_table_to_file('crm/customers.csv', extended_table)
+    
 
     return table
 
@@ -89,9 +127,10 @@ def update(table, id_):
         list: table with updated record
     """
 
-    # your code
+    update_table = common.update_general(table, table_structure(), id_)
+    data_manager.write_table_to_file('crm/customers.csv', update_table)
 
-    return table
+    return update_table
 
 
 # special functions:

@@ -17,9 +17,11 @@ import data_manager
 # common module
 import common
 
+
 def table_structure():
     table_struct = ['id', 'name', 'manufacturer', 'purchase_year', 'durability']
     return table_struct
+
 
 def start_module():
     """
