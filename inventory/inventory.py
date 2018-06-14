@@ -73,8 +73,8 @@ def show_table(table):
     Returns:
         None
     """
-
-    # your code
+    ui.print_table(table, table_structure())
+    
 
 
 def add(table):

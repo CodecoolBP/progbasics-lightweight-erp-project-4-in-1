@@ -22,7 +22,11 @@ def print_table(table, title_list):
         None: This function doesn't return anything it only prints to console.
     """
 
-    # your goes code
+    table.insert(0,title_list)
+    
+    for row in table:
+        print(row)
+
 
 
 def print_result(result, label):
@@ -105,4 +109,4 @@ def print_error_message(message):
         None: This function doesn't return anything it only prints to console.
     """
 
-    # your code
+    print('Error: @message')
