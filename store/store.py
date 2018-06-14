@@ -58,7 +58,7 @@ def start_module():
             id_input = ui.get_inputs(["Please give an id: "], "")
             update(store_table, id_input[0])
         elif option == "5":
-            print(get_lowest_price_item_id(store_table))
+            ui.print_result(get_counts_by_manufacturers(store_table), "How many different kinds of game are available of each manufacturer?")
         elif option == "6":
             manufacturer_input = ui.get_inputs(table_structure[2], "")
             get_average_by_manufacturer(store_table, manufacturer)
@@ -147,7 +147,14 @@ def get_counts_by_manufacturers(table):
          dict: A dictionary with this structure: { [manufacturer] : [count] }
     """
 
-    # your code
+    games_manufacturers = {}
+    for sublist in table:
+        if sublist[2] not in games_manufacturers.keys():
+            games_manufacturers[sublist[2]] = 1
+        else:
+            games_manufacturers[sublist[2]] += 1
+    return games_manufacturers
+
 
 
 def get_average_by_manufacturer(table, manufacturer):
