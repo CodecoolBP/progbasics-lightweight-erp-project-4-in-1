@@ -22,11 +22,14 @@ def print_table(table, title_list):
         None: This function doesn't return anything it only prints to console.
     """
 
-    table.insert(0,title_list)
-    
-    for row in table:
-        print(row)
-
+    table.insert(0, title_list)
+    for i, d in enumerate(table):
+        line = '|'.join(str(x).ljust(15) for x in d)
+        print(line)
+        if i == 0:
+            print('*' * 90)
+        if i > 0:
+            print('-' * 90)
 
 
 def print_result(result, label):
