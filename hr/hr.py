@@ -16,6 +16,11 @@ import data_manager
 import common
 
 
+def table_structure():
+    table_struct = ['ID ','Name ','Year ']
+    return table_struct
+
+
 def start_module():
     """
     Starts this module and displays its menu.
@@ -26,19 +31,39 @@ def start_module():
         None
     """
 
-    # your code
-    title = "HR menu"
-    hr_sub_menu =  ["Show staff",
+    hr_table = data_manager.get_table_from_file('hr/persons.csv')
+
+    sub_options =  ["Show staff",
                     "Add person to staff",
                     "Remove person from staff",
                     "Update staff",
                     "Get oldest person",
                     "Get the most average old person"]
-    exit_message = "Bye"
-    ui.print_menu(title, hr_sub_menu,exit_message)
+    
+    ui.print_menu("HR menu", sub_options,"Main menu")
 
+    inputs = ui.get_inputs(["Please enter a number: "], "")
+    option = inputs[0]
+    if option == "1":
+        show_table(hr_table)
+    elif option == "2":
+        add(hr_table)
+    elif option == "3":
+        id_input = ui.get_inputs(["Please give an id: "], "")
+        remove(hr_table, id_input[0])
+    elif option == "4":
+        id_input = common.generate_random
+        update(hr_table, id_input[0])
+    elif option == "5":
+        get_available_items(table)
+    elif option == "6":
+        get_average_durability_by_manufacturers
+    elif option == "0":
+        main.main()
+    else:
+        raise KeyError("There is no such option.")
 
-def show_table(table):
+def show_table(table): #key 1
     """
     Display a table
 
@@ -49,13 +74,13 @@ def show_table(table):
         None
     """
 
-    # your code
+    extended_table = common.show_table_general(table)
+    presented_table = data_manager.write_table_to_file('inventory/inventory.csv', extended_table)
     
-    hr_table = data_manager.get_table_from_file("hr/persons.csv")
-    ui.print_table(hr_table)
 
+    return presented_table
 
-def add(table):
+def add(table): #key2
     """
     Asks user for input and adds it into the table.
 
@@ -66,12 +91,13 @@ def add(table):
         list: Table with a new record
     """
 
-    # your code
+    extended_table = common.add_general(table,table_structure())
+    data_manager.write_table_to_file('hr/persons.py',extended_table)
+    
+    return  extended_table
 
-    return table
 
-
-def remove(table, id_):
+def remove(table, id_): #key3
     """
     Remove a record with a given id from the table.
 
@@ -83,12 +109,14 @@ def remove(table, id_):
         list: Table without specified record.
     """
 
-    # your code
+    cut_table = common.remove_general(table,id_)
+    ui.print_table(cut_table, "Table without specified record")
+    data_manager.write_table_to_file("hr/persons.csv",cut_table)
 
-    return table
+    return cut_table
 
 
-def update(table, id_):
+def update(table, id_): #key4
     """
     Updates specified record in the table. Ask users for new data.
 
@@ -100,7 +128,8 @@ def update(table, id_):
         list: table with updated record
     """
 
-    # your code
+    update_process = common.update_general(table,id)
+    updated_file = data_manager.write_table_to_file("hr/persons.csv",update_process)
 
     return table
 
@@ -132,5 +161,3 @@ def get_persons_closest_to_average(table):
     Returns:
         list: list of strings (name or names if there are two more with the same value)
     """
-
-    # your code

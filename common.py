@@ -51,4 +51,10 @@ def update_general(table, table_structure, id_):
             table[index] = update_item
     
     return table
-    
+
+
+def remove_general(table,id):
+    for line in table:
+        if id in line:
+            table.remove(line)
+            return table

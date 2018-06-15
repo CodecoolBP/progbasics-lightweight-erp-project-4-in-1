@@ -19,7 +19,7 @@ import common
 
 
 def table_structure():
-    table_struct = ['id', 'name', 'manufacturer', 'purchase_year', 'durability']
+    table_struct = ['id ', 'name ', 'manufacturer ', 'purchase_year ', 'durability ']
     return table_struct
 
 
@@ -35,12 +35,12 @@ def start_module():
     while True:
         inventory_table = data_manager.get_table_from_file('inventory/inventory.csv')
 
-        sub_options = ["Display inventory",
-                    "Add a new console type",
-                    "Remove a console type",
-                    "Update a console",
-                    "Available consoles (not yet available)",
-                    "Average durability times by manufacturers (not yet available)"]
+        sub_options = ["Display inventory ",
+                    "Add a new console type ",
+                    "Remove a console type ",
+                    "Update a console ",
+                    "Available consoles ",
+                    "Average durability times by manufacturers (not yet available) "]
         
         ui.print_menu("Inventory menu", sub_options, "Main menu")
 
@@ -57,9 +57,9 @@ def start_module():
             id_input = ui.get_inputs(["Please give an id: "], "")
             update(inventory_table, id_input[0])
         elif option == "5":
-            get_available_items(table)
+            get_available_items(inventory_table)
         elif option == "6":
-            get_average_durability_by_manufacturers
+            get_average_durability_by_manufacturers(inventory_table)
         elif option == "0":
             break
         else:
@@ -144,8 +144,11 @@ def get_available_items(table):
     Returns:
         list: list of lists (the inner list contains the whole row with their actual data types)
     """
-
-    # your code
+    examined_year = 2018
+    for row in table:
+        if (int(row[3]) + int(row[4])) < examined_year:
+            table.remove(row)
+    ui.print_table(table, 'Which items have not exceeded their durability yet?')
 
 
 def get_average_durability_by_manufacturers(table):
@@ -158,5 +161,17 @@ def get_average_durability_by_manufacturers(table):
     Returns:
         dict: a dictionary with this structure: { [manufacturer] : [avg] }
     """
+    # manufact_avg_durability = {}
 
+    # for row in table:
+    #     if manufact_avg_durability.has_key(row[2]) = False:
+    #         manufact_avg_durability[row[2]] = []
+    #         manufact_avg_durability[row[2]].append(row[4])
+
+
+    #     elif manufact_avg_durability.has_key(row[2]) = True:
+    #         a = manufact_avg_durability(row[2])
+
+   
     # your code
+    pass

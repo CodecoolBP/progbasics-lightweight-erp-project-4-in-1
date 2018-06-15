@@ -18,7 +18,7 @@ import common
 
 
 def table_structure():
-    table_struct = ['id', 'name', 'email', 'subscribed']
+    table_struct = ['id ', 'name ', 'email ', 'subscribed ']
     return table_struct
 
 
@@ -39,8 +39,8 @@ def start_module():
                     "Add a new customer",
                     "Remove a customer",
                     "Update a customer",
-                    "(not yet available)",
-                    "(not yet available)"]
+                    "Id of the longest name",
+                    "List of subscribed customers"]
         
         ui.print_menu("Customer Relationship Management menu", sub_options, "Main menu")
 
@@ -147,9 +147,16 @@ def get_longest_name_id(table):
             string: id of the longest name (if there are more than one, return
                 the last by alphabetical order of the names)
         """
-
-    # your code
-
+    max_name, name_id = 'a', None
+    
+    for row in table:
+        if len(row[1]) > len(max_name):
+            max_name = row[1]
+            name_id = row[0]
+        elif len(row[1]) == len(max_name) and row[1] > max_name:
+            max_name = row[1]
+            name_id = row[0]
+    ui.print_result(name_id, "What is the id of the customer with the longest name?")    
 
 # the question: Which customers has subscribed to the newsletter?
 # return type: list of strings (where string is like email+separator+name, separator=";")
@@ -163,5 +170,9 @@ def get_subscribed_emails(table):
         Returns:
             list: list of strings (where a string is like "email;name")
         """
+    subscribed_emails = []
 
-    # your code
+    for row in table:
+        if row[3] == '1':
+            subscribed_emails.append(str(row[2])+';'+str(row[1]))
+    ui.print_table(subscribed_emails, 'Which customers has subscribed to the newsletter?')
