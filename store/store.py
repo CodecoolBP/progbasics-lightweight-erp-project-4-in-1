@@ -19,7 +19,7 @@ import common
 
 
 def table_structure():
-    table_struct = ['id', 'title', 'manufacturer', 'price', 'in_stock']
+    table_struct = ['id ', 'title ', 'manufacturer ', 'price ', 'in_stock ']
     return table_struct
 
 

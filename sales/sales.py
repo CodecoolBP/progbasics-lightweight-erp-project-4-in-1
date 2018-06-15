@@ -20,7 +20,7 @@ import common
 
 
 def table_structure():
-    table_struct = ['id', 'title', 'price', 'month', 'day', 'year']
+    table_struct = ['id ', 'title ', 'price ', 'month ', 'day ', 'year ']
     return table_struct
 
 

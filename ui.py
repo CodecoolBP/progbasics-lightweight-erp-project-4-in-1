@@ -28,7 +28,7 @@ def print_table(table, title_list):
         print(line)
         if i == 0:
             print('*' * 90)
-        if i > 0:
+        else:
             print('-' * 90)
 
 
