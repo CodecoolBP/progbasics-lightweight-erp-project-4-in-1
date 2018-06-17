@@ -161,17 +161,17 @@ def get_average_durability_by_manufacturers(table):
     Returns:
         dict: a dictionary with this structure: { [manufacturer] : [avg] }
     """
-    # manufact_avg_durability = {}
+    manufact_avg_durability = {}
 
-    # for row in table:
-    #     if manufact_avg_durability.has_key(row[2]) = False:
-    #         manufact_avg_durability[row[2]] = []
-    #         manufact_avg_durability[row[2]].append(row[4])
-
-
-    #     elif manufact_avg_durability.has_key(row[2]) = True:
-    #         a = manufact_avg_durability(row[2])
-
-   
-    # your code
-    pass
+    for row in table:
+        if row[2] not in manufact_avg_durability:
+            manufact_avg_durability[row[2]] = []
+            manufact_avg_durability[row[2]].append(int(row[4]))
+        elif row[2] in manufact_avg_durability:
+            manufact_avg_durability[row[2]].append(int(row[4]))
+  
+    for key, value in manufact_avg_durability.items():
+        manufact_avg_durability[key] = sum(value) / len(value)
+    
+    ui.print_result(manufact_avg_durability,"What are the average durability times for each manufacturer?")
+    return manufact_avg_durability
