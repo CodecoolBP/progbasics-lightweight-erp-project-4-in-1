@@ -73,8 +73,8 @@ def start_module():
         elif option == "5":
             ui.print_result(get_lowest_price_item_id(sales_table), "What is the id of the item that was sold for the lowest price?")
         elif option == "6":
-            inputs = ui.get_inputs(["Please give the following data: "], "")
-            get_items_sold_between(sales_table, inputs[0], inputs[1], inputs[2], inputs[3], inputs[4], inputs[5])
+            inputs = ui.get_inputs(["Year from", "Month from", "Day from", "Year to", "Month to", "Day to"], "Please give the following data:")
+            get_items_sold_between(sales_table, int(inputs[1]), int(inputs[2]), int(inputs[0]), int(inputs[4]), int(inputs[5]), int(inputs[3]))
         elif option == "0":
             break
         else:
@@ -124,9 +124,11 @@ def remove(table, id_):
         list: Table without specified record.
     """
 
-    # your code
+    cut_table = common.remove_general(table,id_)
+    ui.print_table(cut_table, "Table without specified record")
+    data_manager.write_table_to_file("sales/sales.csv", cut_table)
 
-    return table
+    return cut_table
 
 
 def update(table, id_):
@@ -187,8 +189,19 @@ def get_items_sold_between(table, month_from, day_from, year_from, month_to, day
         list: list of lists (the filtered table)
     """
 
+<<<<<<< HEAD
     # your code
     pass
+=======
+    result = []
+    for sublist in table:
+        if int(sublist[5]) >= year_from and int(sublist[5]) <= year_to:
+            if int(sublist[3]) >= month_from and int(sublist[3]) <= month_to:
+                if int(sublist[4]) >= day_from and int(sublist[4]) <= day_to:
+                    result.append(sublist)
+    
+    return result
+>>>>>>> b60c071d137e647635c72bfcd06a7f4ca3d686c1
 
 # functions supports data abalyser
 # --------------------------------
@@ -309,8 +322,13 @@ def get_the_sum_of_prices_from_table(table, item_ids):
 
     pass
 
+<<<<<<< HEAD
 '''START FCKIN HERE !!!!
 '''
+=======
+# EDDIG!!!!!!!!
+
+>>>>>>> b60c071d137e647635c72bfcd06a7f4ca3d686c1
 def get_customer_id_by_sale_id(sale_id):
     """
     Reads the sales table with the help of the data_manager module.
