@@ -188,11 +188,7 @@ def get_items_sold_between(table, month_from, day_from, year_from, month_to, day
     Returns:
         list: list of lists (the filtered table)
     """
-
-<<<<<<< HEAD
-    # your code
-    pass
-=======
+    # not good, not final!!!
     result = []
     for sublist in table:
         if int(sublist[5]) >= year_from and int(sublist[5]) <= year_to:
@@ -201,7 +197,6 @@ def get_items_sold_between(table, month_from, day_from, year_from, month_to, day
                     result.append(sublist)
     
     return result
->>>>>>> b60c071d137e647635c72bfcd06a7f4ca3d686c1
 
 # functions supports data abalyser
 # --------------------------------
@@ -322,13 +317,10 @@ def get_the_sum_of_prices_from_table(table, item_ids):
 
     pass
 
-<<<<<<< HEAD
 '''START FCKIN HERE !!!!
 '''
-=======
 # EDDIG!!!!!!!!
 
->>>>>>> b60c071d137e647635c72bfcd06a7f4ca3d686c1
 def get_customer_id_by_sale_id(sale_id):
     """
     Reads the sales table with the help of the data_manager module.

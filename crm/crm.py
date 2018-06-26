@@ -40,7 +40,9 @@ def start_module():
                     "Remove a customer",
                     "Update a customer",
                     "Id of the longest name",
-                    "List of subscribed customers"]
+                    "List of subscribed customers",
+                    "Get name by id",
+                    "Get name by id from table"]
         
         ui.print_menu("Customer Relationship Management menu", sub_options, "Main menu")
 
@@ -60,6 +62,12 @@ def start_module():
             get_longest_name_id(crm_table)
         elif option == "6":
             get_subscribed_emails(crm_table)
+        elif option == "7":
+            id_input = ui.get_inputs(["Please give an id: "], "")
+            get_name_by_id(id_input[0])
+        elif option == "8":
+            id_input = ui.get_inputs(["Please give an id: "], "")
+            get_name_by_id_from_table(crm_table, id_input[0])
         elif option == "0":
             break
         else:
@@ -196,9 +204,11 @@ def get_name_by_id(id):
         str the name of the customer
     """
 
-    # your code
-
-    pass
+    crm_table = data_manager.get_table_from_file('crm/customers.csv')
+    for sublist in crm_table:
+        if id == sublist[0]:
+            return ui.print_result(sublist[1], "What name belongs to the given id?")
+    return ui.print_result(None, "What name belongs to the given id?")
 
 
 def get_name_by_id_from_table(table, id):
@@ -214,6 +224,7 @@ def get_name_by_id_from_table(table, id):
         str the name of the customer
     """
 
-    # your code
-
-    pass
+    for sublist in table:
+        if id == sublist[0]:
+            return ui.print_result(sublist[1], "What name belongs to the given id?")
+    return ui.print_result(None, "What name belongs to the given id?")
