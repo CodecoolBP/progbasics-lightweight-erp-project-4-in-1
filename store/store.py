@@ -110,9 +110,11 @@ def remove(table, id_):
         list: Table without specified record.
     """
 
-    # your code
+    cut_table = common.remove_general(table,id_)
+    ui.print_table(cut_table, "Table without specified record")
+    data_manager.write_table_to_file("store/games.csv", cut_table)
 
-    return table
+    return cut_table
 
 
 def update(table, id_):

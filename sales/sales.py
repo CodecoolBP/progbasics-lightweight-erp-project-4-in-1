@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 """ Sales module
 
 Data table structure:
@@ -12,7 +11,6 @@ Data table structure:
 """
 
 # everything you'll need is imported:
-=======
 # data structure:
 # id: string
 #     Unique and random generated (at least 2 special char()expect: ';'), 2 number, 2 lower and 2 upper case letter)
@@ -26,7 +24,6 @@ Data table structure:
 
 # importing everything you need
 import os
->>>>>>> 4f7b26a11b724d5828f76a050209964fdb726012
 # User interface module
 import ui
 # data manager module
@@ -76,8 +73,8 @@ def start_module():
         elif option == "5":
             ui.print_result(get_lowest_price_item_id(sales_table), "What is the id of the item that was sold for the lowest price?")
         elif option == "6":
-            inputs = ui.get_inputs(["Please give the following data: "], "")
-            get_items_sold_between(sales_table, inputs[0], inputs[1], inputs[2], inputs[3], inputs[4], inputs[5])
+            inputs = ui.get_inputs(["Year from", "Month from", "Day from", "Year to", "Month to", "Day to"], "Please give the following data:")
+            get_items_sold_between(sales_table, int(inputs[1]), int(inputs[2]), int(inputs[0]), int(inputs[4]), int(inputs[5]), int(inputs[3]))
         elif option == "0":
             break
         else:
@@ -127,9 +124,11 @@ def remove(table, id_):
         list: Table without specified record.
     """
 
-    # your code
+    cut_table = common.remove_general(table,id_)
+    ui.print_table(cut_table, "Table without specified record")
+    data_manager.write_table_to_file("sales/sales.csv", cut_table)
 
-    return table
+    return cut_table
 
 
 def update(table, id_):
@@ -186,14 +185,18 @@ def get_items_sold_between(table, month_from, day_from, year_from, month_to, day
         day_to (int)
         year_to (int)
 
-<<<<<<< HEAD
     Returns:
         list: list of lists (the filtered table)
     """
 
-    # your code
-=======
-    pass
+    result = []
+    for sublist in table:
+        if int(sublist[5]) >= year_from and int(sublist[5]) <= year_to:
+            if int(sublist[3]) >= month_from and int(sublist[3]) <= month_to:
+                if int(sublist[4]) >= day_from and int(sublist[4]) <= day_to:
+                    result.append(sublist)
+    
+    return result
 
 # functions supports data abalyser
 # --------------------------------
@@ -314,6 +317,7 @@ def get_the_sum_of_prices_from_table(table, item_ids):
 
     pass
 
+# EDDIG!!!!!!!!
 
 def get_customer_id_by_sale_id(sale_id):
     """
@@ -438,4 +442,3 @@ def get_num_of_sales_per_customer_ids_from_table(table):
     # your code
 
     pass
->>>>>>> 4f7b26a11b724d5828f76a050209964fdb726012
