@@ -54,7 +54,9 @@ def start_module():
                     "Remove sold game",
                     "Update sold game",
                     "Check sold with the lowest price ",
-                    "Check items sold between a given date"]
+                    "Check items sold between a given date",
+                    "Get title by id",
+                    "Get title by id from table"]
         
         ui.print_menu("Sales menu", sub_options, "Main menu")
 
@@ -75,6 +77,13 @@ def start_module():
         elif option == "6":
             inputs = ui.get_inputs(["Year from", "Month from", "Day from", "Year to", "Month to", "Day to"], "Please give the following data:")
             get_items_sold_between(sales_table, int(inputs[1]), int(inputs[2]), int(inputs[0]), int(inputs[4]), int(inputs[5]), int(inputs[3]))
+        elif option == "7":
+            id_input = ui.get_inputs(["Please give an id: "], "")
+            get_title_by_id(id_input[0])
+        elif option == "8":
+            id_input = ui.get_inputs(["Please give an id: "], "")
+            get_title_by_id_from_table(sales_table, id_input[0])
+        
         elif option == "0":
             break
         else:
@@ -201,6 +210,7 @@ def get_items_sold_between(table, month_from, day_from, year_from, month_to, day
 # functions supports data abalyser
 # --------------------------------
 
+# INNENTŐL
 
 def get_title_by_id(id):
 
@@ -215,9 +225,11 @@ def get_title_by_id(id):
         str the title of the item
     """
 
-    # your code
-
-    pass
+    sales_table = data_manager.get_table_from_file('sales/sales.csv')
+    for sublist in sales_table:
+        if id == sublist[0]:
+            return ui.print_result(sublist[1], "What title belongs to the given id?")
+    return ui.print_result(None, "What title belongs to the given id?")
 
 
 def get_title_by_id_from_table(table, id):
@@ -233,9 +245,10 @@ def get_title_by_id_from_table(table, id):
         str the title of the item
     """
 
-    # your code
-
-    pass
+    for sublist in table:
+        if id == sublist[0]:
+            return ui.print_result(sublist[1], "What title belongs to the given id?")
+    return ui.print_result(None, "What title belongs to the given id?")
 
 
 def get_item_id_sold_last():
