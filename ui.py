@@ -21,15 +21,38 @@ def print_table(table, title_list):
     Returns:
         None: This function doesn't return anything it only prints to console.
     """
+    list_of_title = []
+    for item in title_list:
+        list_of_title.append(item.upper())
+    table.insert(0, list_of_title)
+    length = len(table[0])
+    mydict = {}
+    for i in range(length):
+        mydict[i] = 0
+    for sublist in table:
+        for i in range(length):
+            if len(sublist[i]) > mydict.get(i):
+                mydict[i] = len(sublist[i])
+    total_length_of_row = sum(mydict.values())
+    print("\n" + "*" * (total_length_of_row + length * 3))
+    for sublist in table:
+        for i in range(length):
+            print(sublist[i].center(mydict.get(i)) + " |", end=' ')
+        if table.index(sublist) == 0:
+            print("\n" + "*" * (total_length_of_row + length * 3))
+        else:    
+            print("\n" + "-" * (total_length_of_row + length * 3))
 
-    table.insert(0, title_list)
-    for i, d in enumerate(table):
-        line = '|'.join(str(x).ljust(15) for x in d)
-        print(line)
-        if i == 0:
-            print('*' * 90)
-        else:
-            print('-' * 90)
+ 
+    # THE OLDER ONE:
+    # table.insert(0, title_list)
+    # for i, d in enumerate(table):
+    #     line = '|'.join(str(x).ljust(15) for x in d)
+    #     print(line)
+    #     if i == 0:
+    #         print('*' * 90)
+    #     else:
+    #         print('-' * 90)
 
 
 def print_result(result, label):
