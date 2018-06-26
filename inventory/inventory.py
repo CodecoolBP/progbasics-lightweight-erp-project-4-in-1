@@ -34,14 +34,12 @@ def start_module():
     """
     while True:
         inventory_table = data_manager.get_table_from_file('inventory/inventory.csv')
-
         sub_options = ["Display inventory ",
                     "Add a new console type ",
                     "Remove a console type ",
                     "Update a console ",
                     "Available consoles ",
                     "Average durability times by manufacturers (not yet available) "]
-        
         ui.print_menu("Inventory menu", sub_options, "Main menu")
 
         inputs = ui.get_inputs(["Please enter a number: "], "")

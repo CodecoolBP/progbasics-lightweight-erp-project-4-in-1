@@ -58,3 +58,6 @@ def remove_general(table,id):
         if id in line:
             table.remove(line)
             return table
+
+# def printer_general(*args,**kvargs)
+#     print(args,kvargs)            

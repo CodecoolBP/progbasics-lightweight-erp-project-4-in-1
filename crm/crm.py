@@ -172,12 +172,10 @@ def get_subscribed_emails(table):
         """
     subscribed_emails = []
 
-<<<<<<< HEAD
     for row in table:
         if row[3] == '1':
             subscribed_emails.append(str(row[2])+';'+str(row[1]))
     ui.print_table(subscribed_emails, 'Which customers has subscribed to the newsletter?')
-=======
     pass
 
 
@@ -219,4 +217,3 @@ def get_name_by_id_from_table(table, id):
     # your code
 
     pass
->>>>>>> 4f7b26a11b724d5828f76a050209964fdb726012

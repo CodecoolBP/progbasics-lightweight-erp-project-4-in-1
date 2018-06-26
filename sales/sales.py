@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 """ Sales module
 
 Data table structure:
@@ -12,7 +11,6 @@ Data table structure:
 """
 
 # everything you'll need is imported:
-=======
 # data structure:
 # id: string
 #     Unique and random generated (at least 2 special char()expect: ';'), 2 number, 2 lower and 2 upper case letter)
@@ -26,7 +24,6 @@ Data table structure:
 
 # importing everything you need
 import os
->>>>>>> 4f7b26a11b724d5828f76a050209964fdb726012
 # User interface module
 import ui
 # data manager module
@@ -186,13 +183,11 @@ def get_items_sold_between(table, month_from, day_from, year_from, month_to, day
         day_to (int)
         year_to (int)
 
-<<<<<<< HEAD
     Returns:
         list: list of lists (the filtered table)
     """
 
     # your code
-=======
     pass
 
 # functions supports data abalyser
@@ -314,7 +309,8 @@ def get_the_sum_of_prices_from_table(table, item_ids):
 
     pass
 
-
+'''START FCKIN HERE !!!!
+'''
 def get_customer_id_by_sale_id(sale_id):
     """
     Reads the sales table with the help of the data_manager module.
@@ -438,4 +434,3 @@ def get_num_of_sales_per_customer_ids_from_table(table):
     # your code
 
     pass
->>>>>>> 4f7b26a11b724d5828f76a050209964fdb726012
