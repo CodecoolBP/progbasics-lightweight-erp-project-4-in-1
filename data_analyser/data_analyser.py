@@ -39,15 +39,15 @@ def start_module():
         if option == "1":
             ui.print_result(get_the_last_buyer_name(), "Who is the last sold item's owner?")
         elif option == "2":
-            get_the_last_buyer_id()
+            ui.print_result(get_the_last_buyer_id(), "What is the last buyer's id?")
         elif option == "3":
-            get_the_buyer_name_spent_most_and_the_money_spent()
+            ui.print_result(get_the_buyer_name_spent_most_and_the_money_spent(), "Which buyer (name) spent the most, and how much is it?")
         elif option == "4":
-            get_the_buyer_id_spent_most_and_the_money_spent
+            ui.print_result(get_the_buyer_id_spent_most_and_the_money_spent, "Which buyer (id) spent the most, and how much is it?")
         elif option == "5":
-            get_the_most_frequent_buyers_names()
+            ui.print_result(get_the_most_frequent_buyers_names(), "Who are the most frequent buyers (names)?")
         elif option == "6":
-            get_the_most_frequent_buyers_ids
+            ui.print_result(get_the_most_frequent_buyers_ids(), "Who are the most frequent buyers (ids)?")
         elif option == "0":
             break
         else:
@@ -68,7 +68,6 @@ def get_the_last_buyer_name():
     buyer_id = sales.get_customer_id_by_sale_id(sales_id)
     buyer_name = crm.get_name_by_id(buyer_id)
     return buyer_name
-    # return ui.print_result(buyer_name, "Who is the last sold item's owner?")
 
 
 def get_the_last_buyer_id():
@@ -79,9 +78,9 @@ def get_the_last_buyer_id():
         Customer id of the last buyer
     """
 
-    # your code
-
-    pass
+    sales_id = sales.get_item_id_sold_last()
+    buyer_id = sales.get_customer_id_by_sale_id(sales_id)
+    return buyer_id
 
 
 def get_the_buyer_name_spent_most_and_the_money_spent():
@@ -94,10 +93,13 @@ def get_the_buyer_name_spent_most_and_the_money_spent():
         Tuple of customer name and the sum the customer spent
     """
 
-    # your code
+    # accounting -> biggest in number -> buyer id
+    # meg kell írni!
+    # crm buyer id -> buyer name
 
-    pass
 
+    buyer_name = crm.get_name_by_id(buyer_id)
+    return buyer_name
 
 def get_the_buyer_id_spent_most_and_the_money_spent():
     """
