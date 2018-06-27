@@ -96,7 +96,7 @@ def start_module():
             id_input = ui.get_inputs(["Please give an id: "], "")
             get_title_by_id_from_table(sales_table, id_input[0])
         elif option == "9":
-            get_item_id_sold_last()
+            ui.print_result(get_item_id_sold_last(), "What is the most recently sold item's id?")
         elif option == "10":
             get_item_id_sold_last_from_table(sales_table)
         elif option == "11":
@@ -109,7 +109,7 @@ def start_module():
             get_the_sum_of_prices_from_table(sales_table, id_input)
         elif option == "14":
             id_input = ui.get_inputs(["Please give an id: "], "")
-            get_customer_id_by_sale_id(id_input[0])
+            ui.print_result(get_customer_id_by_sale_id(id_input[0]), "The ID of the person who bought this game: ")
         elif option == "15":
             id_input = ui.get_inputs(["Please give an id: "], "")
             get_customer_id_by_sale_id_from_table(id_input[0])
@@ -338,8 +338,8 @@ def get_item_id_sold_last():
             result_dict[sublist[0]] += sublist[4]
     result_value = max(result_dict.values())
     result_key = [k for k,v in result_dict.items() if v == result_value]
-    return ui.print_result(result_key[0], "What is the most recently sold item's id?")
-
+    return result_key[0]
+    
 
 def get_item_id_sold_last_from_table(table):
     """
@@ -462,9 +462,8 @@ def get_customer_id_by_sale_id(sale_id):
     for customer in sales_table:
         if sale_id == customer[0]:
             person = str(customer[6])
-    ui.print_result(person,"The ID of the person who bought this game: ")        
+    return person
     
-
 
 def get_customer_id_by_sale_id_from_table(table, sale_id):
     """
@@ -480,7 +479,7 @@ def get_customer_id_by_sale_id_from_table(table, sale_id):
     for customer in table:
         if sale_id == customer[0]:
             person = str(customer[6])
-    ui.print_result(person,"The ID of the person who bought this game: ")
+    return ui.print_result(person,"The ID of the person who bought this game: ")
 
 
 def get_all_customer_ids():
@@ -495,7 +494,7 @@ def get_all_customer_ids():
     sales_table = data_manager.get_table_from_file('sales/sales.csv')
     for ids in sales_table:
         all_customer_ids.append(ids[6])
-    ui.print_result(all_customer_ids,"These are all the customer IDs: ")
+    return ui.print_result(all_customer_ids,"These are all the customer IDs: ")
 
 
 def get_all_customer_ids_from_table(table):
@@ -510,7 +509,7 @@ def get_all_customer_ids_from_table(table):
     all_customer_ids = set()
     for ids in sales_table:
         all_customer_ids.add(ids[6])
-    ui.print_result(all_customer_ids,"These are all the customer IDs: ")
+    return ui.print_result(all_customer_ids,"These are all the customer IDs: ")
 
 def get_all_sales_ids_for_customer_ids():
     """

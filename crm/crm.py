@@ -64,7 +64,7 @@ def start_module():
             get_subscribed_emails(crm_table)
         elif option == "7":
             id_input = ui.get_inputs(["Please give an id: "], "")
-            get_name_by_id(id_input[0])
+            ui.print_result(get_name_by_id(id_input[0]), "What name belongs to the given id?")
         elif option == "8":
             id_input = ui.get_inputs(["Please give an id: "], "")
             get_name_by_id_from_table(crm_table, id_input[0])
@@ -205,10 +205,11 @@ def get_name_by_id(id):
     """
 
     crm_table = data_manager.get_table_from_file('crm/customers.csv')
+    result = None
     for sublist in crm_table:
         if id == sublist[0]:
-            return ui.print_result(sublist[1], "What name belongs to the given id?")
-    return ui.print_result(None, "What name belongs to the given id?")
+            result = sublist[1]
+    return result
 
 
 def get_name_by_id_from_table(table, id):
