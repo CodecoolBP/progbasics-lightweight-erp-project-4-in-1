@@ -54,7 +54,15 @@ def start_module():
                     "Remove sold game",
                     "Update sold game",
                     "Check sold with the lowest price ",
-                    "Check items sold between a given date"]
+                    "Check items sold between a given date",
+                    "Get customer ID by sale ID (14-est nyomj)",
+                    "Get customer ID by sale ID from table (15-est nyomj)",
+                    "Get all customer IDs (press 16 for now)",
+                    "Get all customer IDs from table (press 17 for now)",
+                    "Get all sales IDs for customer IDs(18 for now)",
+                    "Get all sales IDs for customer IDs form table(19 for now)",
+                    "Get num of sales per customer IDs (20 for now)"
+                    ]
         
         ui.print_menu("Sales menu", sub_options, "Main menu")
 
@@ -75,6 +83,22 @@ def start_module():
         elif option == "6":
             inputs = ui.get_inputs(["Year from", "Month from", "Day from", "Year to", "Month to", "Day to"], "Please give the following data:")
             get_items_sold_between(sales_table, int(inputs[1]), int(inputs[2]), int(inputs[0]), int(inputs[4]), int(inputs[5]), int(inputs[3]))
+        elif option == "14":
+            id_input = ui.get_inputs(["Please give an id: "], "")
+            get_customer_id_by_sale_id(id_input[0])
+        elif option == "15":
+            id_input = ui.get_inputs(["Please give an id: "], "")
+            get_customer_id_by_sale_id(id_input[0])
+        elif option == "16":
+            get_all_customer_ids()
+        elif option == "17":
+            get_all_customer_ids_from_table
+        elif option == "18":
+            get_all_sales_ids_for_customer_ids()
+        elif option == "19":
+            get_all_sales_ids_for_customer_ids_form_table(table)
+        elif option == "20":
+            get_num_of_sales_per_customer_ids()
         elif option == "0":
             break
         else:
@@ -332,9 +356,13 @@ def get_customer_id_by_sale_id(sale_id):
          customer_id that belongs to the given sale id
     """
 
-    # your code
-
-    pass
+    person = ""
+    sales_table = data_manager.get_table_from_file('sales/sales.csv')
+    for customer in sales_table:
+        if sale_id == customer[0]:
+            person = str(customer[6])
+    ui.print_result(person,"The ID of the person who bought this game: ")        
+    
 
 
 def get_customer_id_by_sale_id_from_table(table, sale_id):
@@ -347,10 +375,11 @@ def get_customer_id_by_sale_id_from_table(table, sale_id):
     Returns:
          customer_id that belongs to the given sale id
     """
-
-    # your code
-
-    pass
+    person = ""
+    for customer in table:
+        if sale_id == customer[0]:
+            person = str(customer[6])
+    ui.print_result(person,"The ID of the person who bought this game: ")
 
 
 def get_all_customer_ids():
@@ -361,9 +390,11 @@ def get_all_customer_ids():
          set of customer_ids that are present in the table
     """
 
-    # your code
-
-    pass
+    all_customer_ids = []
+    sales_table = data_manager.get_table_from_file('sales/sales.csv')
+    for ids in sales_table:
+        all_customer_ids.append(ids[6])
+    ui.print_result(all_customer_ids,"These are all the customer IDs: ")
 
 
 def get_all_customer_ids_from_table(table):
@@ -375,10 +406,10 @@ def get_all_customer_ids_from_table(table):
          set of customer_ids that are present in the table
     """
 
-    # your code
-
-    pass
-
+    all_customer_ids = set()
+    for ids in sales_table:
+        all_customer_ids.add(ids[6])
+    ui.print_result(all_customer_ids,"These are all the customer IDs: ")
 
 def get_all_sales_ids_for_customer_ids():
     """
@@ -425,9 +456,21 @@ def get_num_of_sales_per_customer_ids():
          dict of (key, value): (customer_id (str), num_of_sales (number))
     """
 
-    # your code
+    sales_table = data_manager.get_table_from_file('sales/sales.csv')
+    num_of_sales = {}
+    for record in sales_table:
+        if record[6] not in num_of_sales:
+            num_of_sales[record[6]] = 0
+    for rec in sales_table:
+        for id_ in num_of_sales:
+            if id_ == rec[6]:
+                num_of_sales[id_] += 1
 
-    pass
+
+    
+    ui.print_result(num_of_sales,"The num of all sales for their IDs")
+    
+    
 
 
 def get_num_of_sales_per_customer_ids_from_table(table):
