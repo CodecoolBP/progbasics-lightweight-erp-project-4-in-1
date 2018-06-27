@@ -24,9 +24,34 @@ def start_module():
         None
     """
 
-    # your code
+    while True:
+        sub_options = ["Get the last buyer's name",
+                        "Get the last buyer's id",
+                        "Get the buyer's name spent most and the money spent",
+                        "Get the buyer's id spent most and the money spent",
+                        "Get the most frequent buyers names",
+                        "Get the most frequent buyers id"]
+        
+        ui.print_menu("Data Analyzer menu", sub_options, "Main menu")
 
-    pass
+        inputs = ui.get_inputs(["Please enter a number: "], "")
+        option = inputs[0]
+        if option == "1":
+            ui.print_result(get_the_last_buyer_name(), "Who is the last sold item's owner?")
+        elif option == "2":
+            get_the_last_buyer_id()
+        elif option == "3":
+            get_the_buyer_name_spent_most_and_the_money_spent()
+        elif option == "4":
+            get_the_buyer_id_spent_most_and_the_money_spent
+        elif option == "5":
+            get_the_most_frequent_buyers_names()
+        elif option == "6":
+            get_the_most_frequent_buyers_ids
+        elif option == "0":
+            break
+        else:
+            raise KeyError("There is no such option.")
 
 
 def get_the_last_buyer_name():
@@ -36,10 +61,14 @@ def get_the_last_buyer_name():
     Returns:
         Customer name of the last buyer
     """
+    # sales -> latest buyed item -> buyer id
+    # crm buyer id -> buyer name
 
-    # your code
-
-    pass
+    sales_id = sales.get_item_id_sold_last()
+    buyer_id = sales.get_customer_id_by_sale_id(sales_id)
+    buyer_name = crm.get_name_by_id(buyer_id)
+    return buyer_name
+    # return ui.print_result(buyer_name, "Who is the last sold item's owner?")
 
 
 def get_the_last_buyer_id():
