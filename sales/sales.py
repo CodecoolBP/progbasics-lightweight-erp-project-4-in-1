@@ -55,20 +55,20 @@ def start_module():
                     "Update sold game",
                     "Check sold with the lowest price ",
                     "Check items sold between a given date",
-                    "Get customer ID by sale ID (14-est nyomj)",
-                    "Get customer ID by sale ID from table (15-est nyomj)",
-                    "Get all customer IDs (press 16 for now)",
-                    "Get all customer IDs from table (press 17 for now)",
-                    "Get all sales IDs for customer IDs(18 for now)",
-                    "Get all sales IDs for customer IDs form table(19 for now)",
-                    "Get num of sales per customer IDs (20 for now)"
                     "Get title by id",
                     "Get title by id from table",
                     "Get the last sold item's id",
                     "Get the last sold item's id from table",
                     "Get the last sold item's title from table",
                     "Get the sum of prices by ids",
-                    "Get the sum of prices from table by ids"]
+                    "Get the sum of prices from table by ids",
+                    "Get customer ID by sale ID",
+                    "Get customer ID by sale ID from table",
+                    "Get all customer IDs",
+                    "Get all customer IDs from table",
+                    "Get all sales IDs for customer IDs",
+                    "Get all sales IDs for customer IDs form table",
+                    "Get num of sales per customer IDs"]
         
         ui.print_menu("Sales menu", sub_options, "Main menu")
 
@@ -89,22 +89,6 @@ def start_module():
         elif option == "6":
             inputs = ui.get_inputs(["Year from", "Month from", "Day from", "Year to", "Month to", "Day to"], "Please give the following data:")
             get_items_sold_between(sales_table, int(inputs[1]), int(inputs[2]), int(inputs[0]), int(inputs[4]), int(inputs[5]), int(inputs[3]))
-        elif option == "14":
-            id_input = ui.get_inputs(["Please give an id: "], "")
-            get_customer_id_by_sale_id(id_input[0])
-        elif option == "15":
-            id_input = ui.get_inputs(["Please give an id: "], "")
-            get_customer_id_by_sale_id(id_input[0])
-        elif option == "16":
-            get_all_customer_ids()
-        elif option == "17":
-            get_all_customer_ids_from_table
-        elif option == "18":
-            get_all_sales_ids_for_customer_ids()
-        elif option == "19":
-            get_all_sales_ids_for_customer_ids_form_table(table)
-        elif option == "20":
-            get_num_of_sales_per_customer_ids()
         elif option == "7":
             id_input = ui.get_inputs(["Please give an id: "], "")
             get_title_by_id(id_input[0])
@@ -123,6 +107,22 @@ def start_module():
         elif option == "13":
             id_input = ui.get_inputs(["Please give an id: "], "")
             get_the_sum_of_prices_from_table(sales_table, id_input)
+        elif option == "14":
+            id_input = ui.get_inputs(["Please give an id: "], "")
+            get_customer_id_by_sale_id(id_input[0])
+        elif option == "15":
+            id_input = ui.get_inputs(["Please give an id: "], "")
+            get_customer_id_by_sale_id_from_table(id_input[0])
+        elif option == "16":
+            get_all_customer_ids()
+        elif option == "17":
+            get_all_customer_ids_from_table()
+        elif option == "18":
+            get_all_sales_ids_for_customer_ids()
+        elif option == "19":
+            get_all_sales_ids_for_customer_ids_form_table(sales_table)
+        elif option == "20":
+            get_num_of_sales_per_customer_ids()
         elif option == "0":
             break
         else:
