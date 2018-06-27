@@ -62,7 +62,13 @@ def start_module():
                     "Get all sales IDs for customer IDs(18 for now)",
                     "Get all sales IDs for customer IDs form table(19 for now)",
                     "Get num of sales per customer IDs (20 for now)"
-                    ]
+                    "Get title by id",
+                    "Get title by id from table",
+                    "Get the last sold item's id",
+                    "Get the last sold item's id from table",
+                    "Get the last sold item's title from table",
+                    "Get the sum of prices by ids",
+                    "Get the sum of prices from table by ids"]
         
         ui.print_menu("Sales menu", sub_options, "Main menu")
 
@@ -99,6 +105,24 @@ def start_module():
             get_all_sales_ids_for_customer_ids_form_table(table)
         elif option == "20":
             get_num_of_sales_per_customer_ids()
+        elif option == "7":
+            id_input = ui.get_inputs(["Please give an id: "], "")
+            get_title_by_id(id_input[0])
+        elif option == "8":
+            id_input = ui.get_inputs(["Please give an id: "], "")
+            get_title_by_id_from_table(sales_table, id_input[0])
+        elif option == "9":
+            get_item_id_sold_last()
+        elif option == "10":
+            get_item_id_sold_last_from_table(sales_table)
+        elif option == "11":
+            get_item_title_sold_last_from_table(sales_table)
+        elif option == "12":
+            id_input = ui.get_inputs(["Please give an id: "], "")
+            get_the_sum_of_prices(id_input)
+        elif option == "13":
+            id_input = ui.get_inputs(["Please give an id: "], "")
+            get_the_sum_of_prices_from_table(sales_table, id_input)
         elif option == "0":
             break
         else:
@@ -225,6 +249,7 @@ def get_items_sold_between(table, month_from, day_from, year_from, month_to, day
 # functions supports data abalyser
 # --------------------------------
 
+# INNENTŐL
 
 def get_title_by_id(id):
 
@@ -239,9 +264,11 @@ def get_title_by_id(id):
         str the title of the item
     """
 
-    # your code
-
-    pass
+    sales_table = data_manager.get_table_from_file('sales/sales.csv')
+    for sublist in sales_table:
+        if id == sublist[0]:
+            return ui.print_result(sublist[1], "What title belongs to the given id?")
+    return ui.print_result(None, "What title belongs to the given id?")
 
 
 def get_title_by_id_from_table(table, id):
@@ -257,9 +284,10 @@ def get_title_by_id_from_table(table, id):
         str the title of the item
     """
 
-    # your code
-
-    pass
+    for sublist in table:
+        if id == sublist[0]:
+            return ui.print_result(sublist[1], "What title belongs to the given id?")
+    return ui.print_result(None, "What title belongs to the given id?")
 
 
 def get_item_id_sold_last():
@@ -271,9 +299,21 @@ def get_item_id_sold_last():
         (str) the _id_ of the item that was sold most recently.
     """
 
-    # your code
-
-    pass
+    sales_table = data_manager.get_table_from_file('sales/sales.csv')
+    result_dict = {}
+    for sublist in sales_table:
+        result_dict[sublist[0]] = sublist[5]
+        if len(sublist[3]) == 1:
+            result_dict[sublist[0]] += "0" + sublist[3]
+        else:
+            result_dict[sublist[0]] += sublist[3]
+        if len(sublist[4]) == 1:
+            result_dict[sublist[0]] += "0" + sublist[4]
+        else:
+            result_dict[sublist[0]] += sublist[4]
+    result_value = max(result_dict.values())
+    result_key = [k for k,v in result_dict.items() if v == result_value]
+    return ui.print_result(result_key[0], "What is the most recently sold item's id?")
 
 
 def get_item_id_sold_last_from_table(table):
@@ -287,9 +327,20 @@ def get_item_id_sold_last_from_table(table):
         (str) the _id_ of the item that was sold most recently.
     """
 
-    # your code
-
-    pass
+    result_dict = {}
+    for sublist in table:
+        result_dict[sublist[0]] = sublist[5]
+        if len(sublist[3]) == 1:
+            result_dict[sublist[0]] += "0" + sublist[3]
+        else:
+            result_dict[sublist[0]] += sublist[3]
+        if len(sublist[4]) == 1:
+            result_dict[sublist[0]] += "0" + sublist[4]
+        else:
+            result_dict[sublist[0]] += sublist[4]
+    result_value = max(result_dict.values())
+    result_key = [k for k,v in result_dict.items() if v == result_value]
+    return ui.print_result(result_key[0], "What is the most recently sold item's id?")
 
 
 def get_item_title_sold_last_from_table(table):
@@ -303,9 +354,20 @@ def get_item_title_sold_last_from_table(table):
         (str) the _title_ of the item that was sold most recently.
     """
 
-    # your code
-
-    pass
+    result_dict = {}
+    for sublist in table:
+        result_dict[sublist[1]] = sublist[5]
+        if len(sublist[3]) == 1:
+            result_dict[sublist[1]] += "0" + sublist[3]
+        else:
+            result_dict[sublist[1]] += sublist[3]
+        if len(sublist[4]) == 1:
+            result_dict[sublist[1]] += "0" + sublist[4]
+        else:
+            result_dict[sublist[1]] += sublist[4]
+    result_value = max(result_dict.values())
+    result_key = [k for k,v in result_dict.items() if v == result_value]
+    return ui.print_result(result_key[0], "What is the most recently sold item's title?")
 
 
 def get_the_sum_of_prices(item_ids):
@@ -320,9 +382,16 @@ def get_the_sum_of_prices(item_ids):
         (number) the sum of the items' prices
     """
 
-    # your code
-
-    pass
+    items = [i.split(', ') for i in item_ids]
+    sales_table = data_manager.get_table_from_file('sales/sales.csv')
+    sum_of_prices = 0
+    for sublist in sales_table:
+        for elem in items[0]:
+            if elem == sublist[0]:
+                sum_of_prices += int(sublist[2])
+            else:
+                continue
+    return ui.print_result(sum_of_prices, "What is the total of given ids' prices?")
 
 
 def get_the_sum_of_prices_from_table(table, item_ids):
@@ -337,9 +406,16 @@ def get_the_sum_of_prices_from_table(table, item_ids):
         (number) the sum of the items' prices
     """
 
-    # your code
-
-    pass
+    items = [i.split(', ') for i in item_ids]
+    sales_table = data_manager.get_table_from_file('sales/sales.csv')
+    sum_of_prices = 0
+    for sublist in sales_table:
+        for elem in items[0]:
+            if elem == sublist[0]:
+                sum_of_prices += int(sublist[2])
+            else:
+                continue
+    return ui.print_result(sum_of_prices, "What is the total of given ids' prices?")
 
 '''START FCKIN HERE !!!!
 '''
