@@ -236,15 +236,40 @@ def get_items_sold_between(table, month_from, day_from, year_from, month_to, day
     Returns:
         list: list of lists (the filtered table)
     """
-    # not good, not final!!!
-    result = []
-    for sublist in table:
-        if int(sublist[5]) >= year_from and int(sublist[5]) <= year_to:
-            if int(sublist[3]) >= month_from and int(sublist[3]) <= month_to:
-                if int(sublist[4]) >= day_from and int(sublist[4]) <= day_to:
-                    result.append(sublist)
     
-    return result
+    month_from, day_from, year_from = str(month_from), str(day_from), str(year_from)
+    month_to, day_to, year_to = str(month_to), str(day_to), str(year_to)
+    if len(month_from) == 1:
+        month_from = "0" + month_from
+    if len(day_from) == 1:
+        day_from= "0" + day_from
+    if len(month_to) == 1:
+        month_to = "0" + month_to
+    if len(day_to) == 1:
+        day_to = "0" + day_to
+    start_date = year_from + month_from + day_from
+    end_date = year_to + month_to + day_to
+    result_dict = {}
+    result_indecies = []
+    final = []
+    for i, sublist in enumerate(table):
+        result_dict[str(i)] = sublist[5]
+        if len(sublist[3]) == 1:
+            result_dict[str(i)] += "0" + sublist[3]
+        else:
+            result_dict[str(i)] += sublist[3]
+        if len(sublist[4]) == 1:
+            result_dict[str(i)] += "0" + sublist[4]
+        else:
+            result_dict[str(i)] += sublist[4]
+    for key, value in result_dict.items():
+        if value >= start_date and value <= end_date:
+            result_indecies.append(key)
+    for i, sublist in enumerate(table):
+        for index in result_indecies:
+            if i == int(index):
+                final.append(sublist) 
+    return ui.print_result(final, "Which items are sold between two given dates?")
 
 # functions supports data abalyser
 # --------------------------------

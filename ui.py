@@ -67,7 +67,15 @@ def print_result(result, label):
         None: This function doesn't return anything it only prints to console.
     """
 
-    print(label, result)
+    print(label)
+    if isinstance(result, list):
+        for sublist in result:
+            print(sublist)
+    elif isinstance(result, dict):
+        for key, val in result.items():
+            print(key, val)
+    else:
+        print(result)
 
 
 def print_menu(title, list_options, exit_message):
@@ -92,7 +100,7 @@ def print_menu(title, list_options, exit_message):
     """
     print(title)
     for option_index in range(len(list_options)):
-        print('(', option_index+1, ')   ',list_options[option_index], sep='')
+        print('(', option_index+1, ')   ', list_options[option_index], sep='')
     print('(0)', exit_message, sep='\t')
     # your code
 
@@ -135,4 +143,4 @@ def print_error_message(message):
         None: This function doesn't return anything it only prints to console.
     """
 
-    print('Error: @message')
+    print('Error: ' + message)
