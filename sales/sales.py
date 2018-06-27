@@ -276,9 +276,21 @@ def get_item_id_sold_last():
         (str) the _id_ of the item that was sold most recently.
     """
 
-    # your code
-
-    pass
+    sales_table = data_manager.get_table_from_file('sales/sales.csv')
+    result_dict = {}
+    for sublist in sales_table:
+        result_dict[sublist[0]] = sublist[5]
+        if len(sublist[3]) == 1:
+            result_dict[sublist[0]] += "0" + sublist[3]
+        else:
+            result_dict[sublist[0]] += sublist[3]
+        if len(sublist[4]) == 1:
+            result_dict[sublist[0]] += "0" + sublist[4]
+        else:
+            result_dict[sublist[0]] += sublist[4]
+    result_value = max(result_dict.values())
+    result_key = [k for k,v in result_dict.items() if v == result_value]
+    return ui.print_result(result_key[0], "What is the most recently sold item's id?")
 
 
 def get_item_id_sold_last_from_table(table):
@@ -292,9 +304,20 @@ def get_item_id_sold_last_from_table(table):
         (str) the _id_ of the item that was sold most recently.
     """
 
-    # your code
-
-    pass
+    result_dict = {}
+    for sublist in table:
+        result_dict[sublist[0]] = sublist[5]
+        if len(sublist[3]) == 1:
+            result_dict[sublist[0]] += "0" + sublist[3]
+        else:
+            result_dict[sublist[0]] += sublist[3]
+        if len(sublist[4]) == 1:
+            result_dict[sublist[0]] += "0" + sublist[4]
+        else:
+            result_dict[sublist[0]] += sublist[4]
+    result_value = max(result_dict.values())
+    result_key = [k for k,v in result_dict.items() if v == result_value]
+    return ui.print_result(result_key[0], "What is the most recently sold item's id?")
 
 
 def get_item_title_sold_last_from_table(table):
@@ -308,9 +331,20 @@ def get_item_title_sold_last_from_table(table):
         (str) the _title_ of the item that was sold most recently.
     """
 
-    # your code
-
-    pass
+    result_dict = {}
+    for sublist in table:
+        result_dict[sublist[1]] = sublist[5]
+        if len(sublist[3]) == 1:
+            result_dict[sublist[1]] += "0" + sublist[3]
+        else:
+            result_dict[sublist[1]] += sublist[3]
+        if len(sublist[4]) == 1:
+            result_dict[sublist[1]] += "0" + sublist[4]
+        else:
+            result_dict[sublist[1]] += sublist[4]
+    result_value = max(result_dict.values())
+    result_key = [k for k,v in result_dict.items() if v == result_value]
+    return ui.print_result(result_key[0], "What is the most recently sold item's title?")
 
 
 def get_the_sum_of_prices(item_ids):
