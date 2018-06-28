@@ -106,23 +106,23 @@ def start_module():
             get_the_sum_of_prices(id_input)
         elif option == "13":
             id_input = ui.get_inputs(["Please give an id: "], "")
-            get_the_sum_of_prices_from_table(sales_table, id_input)
+            ui.print_result(get_the_sum_of_prices_from_table(sales_table, id_input), "What is the total of given ids' prices?")
         elif option == "14":
             id_input = ui.get_inputs(["Please give an id: "], "")
             ui.print_result(get_customer_id_by_sale_id(id_input[0]), "The ID of the person who bought this game: ")
         elif option == "15":
             id_input = ui.get_inputs(["Please give an id: "], "")
-            get_customer_id_by_sale_id_from_table(id_input[0])
+            ui.print_result(get_customer_id_by_sale_id_from_table(id_input[0]),"The ID of the person who bought this game: ")
         elif option == "16":
-            get_all_customer_ids()
+            ui.print_result(get_all_customer_ids(),"These are all the customer IDs: ")
         elif option == "17":
-            get_all_customer_ids_from_table()
+            ui.print_result(get_all_customer_ids_from_table(),"These are all the customer IDs: ")
         elif option == "18":
             get_all_sales_ids_for_customer_ids()
         elif option == "19":
             get_all_sales_ids_for_customer_ids_form_table(sales_table)
         elif option == "20":
-            get_num_of_sales_per_customer_ids()
+            ui.print_result(get_num_of_sales_per_customer_ids(),"The num of all sales for their IDs")
         elif option == "21":
             get_num_of_sales_per_customer_ids_from_table(sales_table)
         elif option == "0":
@@ -270,7 +270,7 @@ def get_items_sold_between(table, month_from, day_from, year_from, month_to, day
     for i, sublist in enumerate(table):
         for index in result_indecies:
             if i == int(index):
-                final.append(sublist) 
+                final.append(sublist)
     return ui.print_result(final, "Which items are sold between two given dates?")
 
 # functions supports data abalyser
@@ -291,10 +291,12 @@ def get_title_by_id(id):
         str the title of the item
     """
 
+    result = None
     sales_table = data_manager.get_table_from_file('sales/sales.csv')
     for sublist in sales_table:
         if id == sublist[0]:
-            return ui.print_result(sublist[1], "What title belongs to the given id?")
+            result = sublist[1]
+    return result
     return ui.print_result(None, "What title belongs to the given id?")
 
 
@@ -310,10 +312,11 @@ def get_title_by_id_from_table(table, id):
     Returns:
         str the title of the item
     """
-
+    result = None
     for sublist in table:
         if id == sublist[0]:
-            return ui.print_result(sublist[1], "What title belongs to the given id?")
+            result = sublist[1]
+    return result
     return ui.print_result(None, "What title belongs to the given id?")
 
 
@@ -367,6 +370,7 @@ def get_item_id_sold_last_from_table(table):
             result_dict[sublist[0]] += sublist[4]
     result_value = max(result_dict.values())
     result_key = [k for k,v in result_dict.items() if v == result_value]
+    return result_key[0]
     return ui.print_result(result_key[0], "What is the most recently sold item's id?")
 
 
@@ -394,6 +398,7 @@ def get_item_title_sold_last_from_table(table):
             result_dict[sublist[1]] += sublist[4]
     result_value = max(result_dict.values())
     result_key = [k for k,v in result_dict.items() if v == result_value]
+    return result_key[0]
     return ui.print_result(result_key[0], "What is the most recently sold item's title?")
 
 
@@ -418,6 +423,7 @@ def get_the_sum_of_prices(item_ids):
                 sum_of_prices += int(sublist[2])
             else:
                 continue
+    return sum_of_prices            
     return ui.print_result(sum_of_prices, "What is the total of given ids' prices?")
 
 
@@ -442,7 +448,8 @@ def get_the_sum_of_prices_from_table(table, item_ids):
                 sum_of_prices += int(sublist[2])
             else:
                 continue
-    return ui.print_result(sum_of_prices, "What is the total of given ids' prices?")
+    return sum_of_prices
+    
 
 '''START FCKIN HERE !!!!
 '''
@@ -481,7 +488,7 @@ def get_customer_id_by_sale_id_from_table(table, sale_id):
     for customer in table:
         if sale_id == customer[0]:
             person = str(customer[6])
-    return ui.print_result(person,"The ID of the person who bought this game: ")
+    return person
 
 
 def get_all_customer_ids():
@@ -496,7 +503,7 @@ def get_all_customer_ids():
     sales_table = data_manager.get_table_from_file('sales/sales.csv')
     for ids in sales_table:
         all_customer_ids.append(ids[6])
-    return ui.print_result(all_customer_ids,"These are all the customer IDs: ")
+    return all_customer_ids
 
 
 def get_all_customer_ids_from_table(table):
@@ -511,7 +518,8 @@ def get_all_customer_ids_from_table(table):
     all_customer_ids = set()
     for ids in sales_table:
         all_customer_ids.add(ids[6])
-    return ui.print_result(all_customer_ids,"These are all the customer IDs: ")
+    return all_customer_ids
+    
 
 def get_all_sales_ids_for_customer_ids():
     """
@@ -567,10 +575,7 @@ def get_num_of_sales_per_customer_ids():
         for id_ in num_of_sales:
             if id_ == rec[6]:
                 num_of_sales[id_] += 1
-
-
-    
-    ui.print_result(num_of_sales,"The num of all sales for their IDs")
+    return num_of_sales
     
     
 def get_num_of_sales_per_customer_ids_from_table(table):
