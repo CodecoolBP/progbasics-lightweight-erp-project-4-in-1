@@ -59,15 +59,15 @@ def start_module():
             id_input = ui.get_inputs(["Please give an id: "], "")
             update(crm_table, id_input[0])
         elif option == "5":
-            get_longest_name_id(crm_table)
+            ui.print_result(get_longest_name_id(crm_table), "What is the id of the customer with the longest name?")    
         elif option == "6":
-            get_subscribed_emails(crm_table)
+            ui.print_result(get_subscribed_emails(crm_table), 'Which customers has subscribed to the newsletter?')           
         elif option == "7":
             id_input = ui.get_inputs(["Please give an id: "], "")
             ui.print_result(get_name_by_id(id_input[0]), "What name belongs to the given id?")
         elif option == "8":
             id_input = ui.get_inputs(["Please give an id: "], "")
-            get_name_by_id_from_table(crm_table, id_input[0])
+            ui.print_result(get_name_by_id_from_table(crm_table, id_input[0]), "What name belongs to the given id?")
         elif option == "0":
             break
         else:
@@ -118,9 +118,11 @@ def remove(table, id_):
         list: Table without specified record.
     """
 
-    # your code
+    cut_table = common.remove_general(table,id_)
+    ui.print_table(cut_table, "Table without specified record")
+    data_manager.write_table_to_file("crm/customers.csv", cut_table)
 
-    return table
+    return cut_table
 
 
 def update(table, id_):
@@ -164,7 +166,8 @@ def get_longest_name_id(table):
         elif len(row[1]) == len(max_name) and row[1] > max_name:
             max_name = row[1]
             name_id = row[0]
-    ui.print_result(name_id, "What is the id of the customer with the longest name?")    
+    return name_id
+
 
 # the question: Which customers has subscribed to the newsletter?
 # return type: list of strings (where string is like email+separator+name, separator=";")
@@ -182,9 +185,8 @@ def get_subscribed_emails(table):
 
     for row in table:
         if row[3] == '1':
-            subscribed_emails.append(str(row[2])+';'+str(row[1]))
-    ui.print_table(subscribed_emails, 'Which customers has subscribed to the newsletter?')
-    pass
+            subscribed_emails.append(row[2]+'\t'+ '\t'+ row[1])
+    return subscribed_emails
 
 
 # functions supports data analyser
@@ -225,7 +227,9 @@ def get_name_by_id_from_table(table, id):
         str the name of the customer
     """
 
+    result = None
     for sublist in table:
         if id == sublist[0]:
-            return ui.print_result(sublist[1], "What name belongs to the given id?")
-    return ui.print_result(None, "What name belongs to the given id?")
+            result = sublist[1]
+    return result
+    
