@@ -123,6 +123,8 @@ def start_module():
             get_all_sales_ids_for_customer_ids_form_table(sales_table)
         elif option == "20":
             get_num_of_sales_per_customer_ids()
+        elif option == "21":
+            get_num_of_sales_per_customer_ids_from_table(sales_table)
         elif option == "0":
             break
         else:
@@ -571,8 +573,6 @@ def get_num_of_sales_per_customer_ids():
     ui.print_result(num_of_sales,"The num of all sales for their IDs")
     
     
-
-
 def get_num_of_sales_per_customer_ids_from_table(table):
     """
      Returns a dictionary of (customer_id, num_of_sales) where:
