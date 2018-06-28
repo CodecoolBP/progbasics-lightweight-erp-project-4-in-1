@@ -93,13 +93,17 @@ def get_the_buyer_name_spent_most_and_the_money_spent():
         Tuple of customer name and the sum the customer spent
     """
 
-    # accounting -> biggest in number -> buyer id
-    # meg kell írni!
-    # crm buyer id -> buyer name
+    max_spent_money_cust_id = None
+    max_spent_money = 0
+    cust_id_sales_id = sales.get_all_sales_ids_for_customer_ids()
+    for key, value in cust_id_sales_id.items():
+        sum_of_one_cust = sales.get_the_sum_of_prices(value)
+        if sum_of_one_cust > max_spent_money:
+            max_spent_money = sum_of_one_cust
+            max_spent_money_cust_id = key
+    max_spent_money_cust_name = crm.get_name_by_id(max_spent_money_cust_id)
+    return max_spent_money_cust_name
 
-
-    buyer_name = crm.get_name_by_id(buyer_id)
-    return buyer_name
 
 def get_the_buyer_id_spent_most_and_the_money_spent():
     """
@@ -111,9 +115,15 @@ def get_the_buyer_id_spent_most_and_the_money_spent():
         Tuple of customer id and the sum the customer spent
     """
 
-    # your code
-
-    pass
+    max_spent_money_cust_id = None
+    max_spent_money = 0
+    cust_id_sales_id = sales.get_all_sales_ids_for_customer_ids()
+    for key, value in cust_id_sales_id.items():
+        sum_of_one_cust = sales.get_the_sum_of_prices(value)
+        if sum_of_one_cust > max_spent_money:
+            max_spent_money = sum_of_one_cust
+            max_spent_money_cust_id = key
+    return max_spent_money_cust_id
 
 
 def get_the_most_frequent_buyers_names(num=1):
@@ -130,9 +140,19 @@ def get_the_most_frequent_buyers_names(num=1):
         Ordered list of tuples of customer names and num of sales
     """
 
-    # your code
-
-    pass
+    # {'kH14Jt#&': 8, 'jH34Jk#&': 11, 'kH14Jh#&': 1}
+    cust_id_and_sum_of_buyed_items = sales.get_num_of_sales_per_customer_ids()
+    for key, value in sorted(cust_id_and_sum_of_buyed_items.items(), key=lambda x: x[1], reverse=True)[num:]:
+        del cust_id_and_sum_of_buyed_items[key]
+    cust_ids = list(cust_id_and_sum_of_buyed_items)
+    cust_names = []
+    for elem in cust_ids:
+        cust_name = crm.get_name_by_id(elem)
+        cust_names.append(cust_name)
+    for key, val in cust_id_and_sum_of_buyed_items.items():
+        i = 1
+        cust_names.insert(i, val)
+    return cust_names
 
 
 def get_the_most_frequent_buyers_ids(num=1):
@@ -148,7 +168,12 @@ def get_the_most_frequent_buyers_ids(num=1):
     Returns:
         Ordered list of tuples of customer ids and num of sales
     """
+    # {'kH14Jt#&': 8, 'jH34Jk#&': 11, 'kH14Jh#&': 1}
+    cust_id_and_sum_of_buyed_items = sales.get_num_of_sales_per_customer_ids()
+    for key, value in sorted(cust_id_and_sum_of_buyed_items.items(), key=lambda x: x[1], reverse=True)[num:]:
+        del cust_id_and_sum_of_buyed_items[key]
+    # result_list = []
+    # result_list.append(set(cust_id_and_sum_of_buyed_items.items()))
+    # return result_list
+    return cust_id_and_sum_of_buyed_items
 
-    # your code
-
-    pass

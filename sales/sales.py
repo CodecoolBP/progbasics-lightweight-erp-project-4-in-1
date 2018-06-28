@@ -67,8 +67,9 @@ def start_module():
                     "Get all customer IDs",
                     "Get all customer IDs from table",
                     "Get all sales IDs for customer IDs",
-                    "Get all sales IDs for customer IDs form table",
-                    "Get num of sales per customer IDs"]
+                    "Get all sales IDs for customer IDs from table",
+                    "Get num of sales per customer IDs",
+                    "Get num of sales per customer IDs from table"]
         
         ui.print_menu("Sales menu", sub_options, "Main menu")
 
@@ -87,7 +88,7 @@ def start_module():
         elif option == "5":
             ui.print_result(get_lowest_price_item_id(sales_table), "What is the id of the item that was sold for the lowest price?")
         elif option == "6":
-            inputs = ui.get_inputs(["Year from", "Month from", "Day from", "Year to", "Month to", "Day to"], "Please give the following data:")
+            inputs = ui.get_inputs(["Year from: ", "Month from: ", "Day from: ", "Year to: ", "Month to: ", "Day to: "], "Please give the following data:")
             get_items_sold_between(sales_table, int(inputs[1]), int(inputs[2]), int(inputs[0]), int(inputs[4]), int(inputs[5]), int(inputs[3]))
         elif option == "7":
             id_input = ui.get_inputs(["Please give an id: "], "")
@@ -112,19 +113,19 @@ def start_module():
             ui.print_result(get_customer_id_by_sale_id(id_input[0]), "The ID of the person who bought this game: ")
         elif option == "15":
             id_input = ui.get_inputs(["Please give an id: "], "")
-            ui.print_result(get_customer_id_by_sale_id_from_table(id_input[0]),"The ID of the person who bought this game: ")
+            ui.print_result(get_customer_id_by_sale_id_from_table(id_input[0]), "The ID of the person who bought this game: ")
         elif option == "16":
-            ui.print_result(get_all_customer_ids(),"These are all the customer IDs: ")
+            ui.print_result(get_all_customer_ids(), "These are all the customer IDs: ")
         elif option == "17":
-            ui.print_result(get_all_customer_ids_from_table(),"These are all the customer IDs: ")
+            ui.print_result(get_all_customer_ids_from_table(), "These are all the customer IDs: ")
         elif option == "18":
             get_all_sales_ids_for_customer_ids()
         elif option == "19":
             get_all_sales_ids_for_customer_ids_form_table(sales_table)
         elif option == "20":
-            ui.print_result(get_num_of_sales_per_customer_ids(),"The num of all sales for their IDs")
+            ui.print_result(get_num_of_sales_per_customer_ids(), "The num of all sales for their IDs")
         elif option == "21":
-            get_num_of_sales_per_customer_ids_from_table(sales_table)
+            ui.print_result(get_num_of_sales_per_customer_ids_from_table(sales_table), "The num of all sales for their IDs")
         elif option == "0":
             break
         else:
@@ -532,10 +533,15 @@ def get_all_sales_ids_for_customer_ids():
          (dict of (key, value): (customer_id, (list) sale_ids)) where the sale_ids list contains
          all the sales id belong to the given customer_id
     """
-
-    # your code
-
-    pass
+    # not finished
+    ids = {}
+    sales_table = data_manager.get_table_from_file('sales/sales.csv')
+    for sublist in sales_table:
+        if sublist[6] not in ids:
+            ids[sublist[6]] = sublist[0]
+        else:
+            ids[sublist[6]] += sublist[0]
+    return ids
 
 
 def get_all_sales_ids_for_customer_ids_form_table(table):
@@ -589,6 +595,12 @@ def get_num_of_sales_per_customer_ids_from_table(table):
          dict of (key, value): (customer_id (str), num_of_sales (number))
     """
 
-    # your code
-
-    pass
+    num_of_sales = {}
+    for record in table:
+        if record[6] not in num_of_sales:
+            num_of_sales[record[6]] = 0
+    for rec in table:
+        for id_ in num_of_sales:
+            if id_ == rec[6]:
+                num_of_sales[id_] += 1
+    return num_of_sales
